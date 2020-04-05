@@ -1,3 +1,4 @@
+@if(count($counts) > 0)
 <div class="col-lg-6 col-xl-6 mg-t-10">
     <div class="card">
         <div class="card-header pd-t-20 pd-b-0 bd-b-0">
@@ -23,3 +24,4 @@
         </div>{{-- card-body --}}
     </div>{{-- card --}}
 </div>
+@endif

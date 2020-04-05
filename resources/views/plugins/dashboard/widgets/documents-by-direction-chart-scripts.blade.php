@@ -1,4 +1,6 @@
-<script>
+@if(count($counts) > 0)
+
+    <script>
     var yDataSet = @json($yDataSet);
     var xDataSet = @json($xDataSet);
 
@@ -16,3 +18,4 @@
 </script>
 {!! HTML::script('theme/lib/chart.js/Chart.bundle.min.js') !!}
 {!! HTML::script('theme/assets/js/documents-by-direction.js') !!}
+@endif
