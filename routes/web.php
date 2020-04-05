@@ -148,8 +148,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             ->name('files.update');
 
         Route::get('/download',function(){
-        $file = public_path()."/scannerApp/scanner.zip";
-        return Response::download($file,'scanner.zip');
+        $file = public_path()."/scannerApp/Setup.msi";
+        return Response::download($file,'Setup.msi');
         })->name('files.download-app');
 
         Route::get('autocomplete', 'Files\FilesController@autocomplete')->name('autocomplete');
