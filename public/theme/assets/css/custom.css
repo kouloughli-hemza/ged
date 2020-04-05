@@ -1,0 +1,105 @@
+.custom-switch {
+    padding-left: 1.25rem;
+    padding-right: 1.0em;
+}
+
+.deleteImportance, .deleteOrder {
+    font-size: 14px;
+    display: inline-block;
+    position: relative;
+    margin-left: auto;
+    opacity: .5;
+}
+
+
+#searchFilters{
+
+    width: 440px;
+}
+
+
+.th_img{
+	width: 360px!important;
+    margin: auto;
+}
+
+
+/* Start Document Search Autocomplete Style */
+.tt-menu { padding: 0px}
+.autocomplete-empty {
+    border : none;
+    text-align: center;
+    padding: 20px;
+}
+
+a.list-group-item.tt-suggestion {
+    border: none;
+    padding: 10px;
+    border-bottom: 1px solid #f6f6f6;
+    border-radius: 0;
+    color: inherit;
+    text-transform: capitalize;
+}
+a.list-group-item.tt-suggestion:hover {
+    background: rgba(0,0,0,.02);
+}
+
+a.list-group-item.tt-suggestion:last-child {
+    border-bottom: 0px;
+}
+
+/* File Manager List View */
+.documents-table th {
+    padding: 15px 10px;
+}
+.documents-table td{
+    vertical-align: middle;
+}
+.documents-table tr:hover  nav {
+    visibility: visible!important;
+}
+.documents-table tr td nav a {
+    color: #8392a5;
+}
+.documents-table tr td nav a i {
+    font-size: 12px;
+}
+.documents-table tr td nav a span {
+    display: none;
+}
+
+.documents-table tr td nav a + a {
+    margin-left:  5px;
+}
+
+
+.custom-file-thumb{
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.custom-file-thumb > i{
+    font-size: 18px;
+}
+
+.document-object {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+td.document-object:hover span {
+    background: #e9ecf1;
+    z-index: 9999;
+    position: relative;
+    font-weight: bold;
+}
+
+td.document-object:hover {
+    overflow: visible;
+}
+/* End File Manager List View */
+

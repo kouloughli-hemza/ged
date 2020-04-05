@@ -1,0 +1,18 @@
+@media (min-width: 760px) {
+    .sign-wrapper{
+        width: 500px;
+    }
+}
+@media (min-width: 992px){
+    .content-fixed {
+        margin-top: 0px
+    }
+}
+
+#registrationForm h3 {display:none}
+.wizard { background : transparent;border:none;
+    margin-bottom: 20px;}
+/* Hide Previous button in first page of registration*/
+.wizard > .actions > ul > li.disabled {
+    opacity : 0;
+}
