@@ -4,6 +4,7 @@ namespace Kouloughli\Repositories\File;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Kouloughli\Direction;
 use Kouloughli\Events\File\Created;
@@ -28,7 +29,8 @@ class EloquentFile implements FileRepository
      */
     public function paginate($perPage, $search = null, $importance = null,$direction = null,$filterDateArrivee = null,$orderBy = 'id',$order = 'desc')
     {
-        $query = File::query();
+        $query = File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name');
+
 
         if ($importance) {
             $query->where('importance', $importance);
@@ -38,8 +40,8 @@ class EloquentFile implements FileRepository
             $query->where('date_arrivee', $filterDateArrivee);
         }
 
-        $direction = Direction::find($direction);
         if ($direction) {
+            $direction = Direction::find($direction);
             $query->where(function ($q) use ($direction) {
                 $q->whereIn('ref_user', $direction->getUserIdsAttribute());
             });
@@ -77,7 +79,7 @@ class EloquentFile implements FileRepository
     {
 
         $direction = Auth::user()->direction;
-        $query = File::query();
+        $query = File::query()->with('user:ref_user,first_name,last_name,id_direc','user.direction:id_direc,direc_name');
 
 
 
@@ -127,7 +129,8 @@ class EloquentFile implements FileRepository
 
     public function autocomplete($search = null)
     {
-        $query = File::query();
+        $query = File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name')
+            ->limit(10);
 
         if ($search) {
             $query->where(function ($q) use ($search) {
@@ -160,14 +163,19 @@ class EloquentFile implements FileRepository
      */
     public function autocompletePrefetch($limit = 20)
     {
-        return File::orderBy('created_at', 'desc')->limit($limit)->get();
+        return File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name')
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get();
     }
 
 
     public function autoCompletePrefetchDirection($limit = 20)
     {
         $direction = Auth::user()->direction;
-        $query = File::query()->limit($limit);
+        $query = File::query()
+            ->with('user:ref_user,id_direc','user.direction:id_direc,direc_name')
+            ->limit($limit);
 
         $query->where(function ($q) use ($direction) {
             $q->whereIn('ref_user', $direction->getUserIdsAttribute());
@@ -237,14 +245,25 @@ class EloquentFile implements FileRepository
 
     public function latest($limit = 4)
     {
-        return File::orderBy('created_at', 'desc')->limit($limit)->get();
+        return File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name')
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get();
 
+    }
+
+    public function latestWidget($limit = 4)
+    {
+        return File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name')
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get();
     }
 
     public function latestForDirection($limit = 4)
     {
         $direction = Auth::user()->direction;
-        $query = File::query();
+        $query = File::query()->with('user:ref_user,id_direc','user.direction:id_direc,direc_name');
         if ($direction) {
             $query->where(function ($q) use ($direction) {
                 $q->whereIn('ref_user', $direction->getUserIdsAttribute());
@@ -258,29 +277,29 @@ class EloquentFile implements FileRepository
 
     public function count()
     {
-        return File::count();
+        return DB::table('files')->count();
+
     }
 
+
+    /**
+     * Get The total files for each month { Display it in dashboard Chart }
+     * @param Carbon $from
+     * @param Carbon $to
+     * @return array|mixed
+     */
     public function filesPerMonth(Carbon $from, Carbon $to)
     {
-        $result = File::whereBetween('created_at', [$from, $to])
-            ->orderBy('created_at')
-            ->get(['created_at'])
-            ->groupBy(function ($file) {
-                return $file->created_at->format("Y_n");
-            });
-
-        $counts = [];
-
-        while ($from->lt($to)) {
-            $key = $from->format("Y_n");
-
-            $counts[$this->parseDate($key)] = count($result->get($key, []));
-
-            $from->addMonth();
+        $result = DB::select("SELECT DATE_FORMAT(created_at, '%m-%Y')
+            created_at,count(created_at) as files_count from files 
+            where (created_at BETWEEN '{$from}' AND '{$to}') 
+            GROUP BY DATE_FORMAT(created_at, '%m-%Y') ");
+        $data = [];
+        foreach ($result as $key => $item){
+            $data[$this->parseDate($item->created_at)] = $item->files_count;
         }
+        return $data;
 
-        return $counts;
     }
 
 
@@ -291,9 +310,9 @@ class EloquentFile implements FileRepository
      */
     private function parseDate($yearMonth)
     {
-        list($year, $month) = explode("_", $yearMonth);
+        list($month, $year) = explode("-", $yearMonth);
 
-        $month = trans("app.months.{$month}");
+        $month = trans("app.monthsql.{$month}");
 
         return "{$month} {$year}";
     }
@@ -305,21 +324,15 @@ class EloquentFile implements FileRepository
      */
     public function directionsFiles()
     {
-        $result = File::with('user')
-            ->orderBy('created_at')
-            ->get(['ref_user'])
-            ->groupBy(function ($file) {
-                return $file->user->direction->id_direc;
-            });
-
-        $counts = [];
-        foreach ($result as $data){
-            if(count($data) > 0){
-                $counts[$data[0]->user->direction->direc_name] = count($data);
-            }
+        $result = DB::select("SELECT count(*) as direction_files_count,direc_name from files 
+                    inner join users on users.ref_user = files.ref_user
+                    inner join directions on directions.id_direc = users.id_direc
+                    GROUP BY users.id_direc");
+        $data = [];
+        foreach ($result as $key => $item){
+            $data[$item->direc_name] = $item->direction_files_count;
         }
-        asort($counts);
-        return $counts;
+        return $data;
     }
 
 }

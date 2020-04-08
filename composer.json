@@ -25,6 +25,7 @@
         "ext-json": "*",
         "akaunting/setting": "^1.0",
         "anhskohbo/no-captcha": "3.*",
+        "consoletvs/charts": "6.*",
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "~4.0",
         "intervention/image": "^2.3",

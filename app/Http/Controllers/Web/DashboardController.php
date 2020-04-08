@@ -45,19 +45,19 @@ class DashboardController extends Controller
         }
         $order   = $request->order ?: 'desc';
 
-        $documents = $this->file->paginateForDirection(
+        $documents = !auth()->user()->hasRole('Admin') ? $this->file->paginateForDirection(
             20,
             $request->search,
             $request->importance,
             $request->filter_date_arrivee,
             $orderBy,
             $order
-        );
+        ) : null;
 
         $view =  view('file-manager.index',[
             'documents' => $documents,
             'space' => Helper::diskSpace(),
-            'latests' => $this->file->latestForDirection(4),
+            'latests' => !auth()->user()->hasRole('Admin') ? $this->file->latestForDirection(4) : null,
             'importances' => FileImportance::lists(),
             'pageNumbers' => FileImportance::pageNumbers(),
             'currentClientIp' => $this->currentClientIp,

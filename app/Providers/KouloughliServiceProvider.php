@@ -48,7 +48,7 @@ class KouloughliServiceProvider extends BaseKouloughliServiceProvider
     protected function widgets()
     {
         return [
-          //  UserActions::class,
+            UserActions::class,
             TotalUsers::class,
             NewUsers::class,
             BannedUsers::class,

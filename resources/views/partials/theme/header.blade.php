@@ -1,5 +1,9 @@
 <header class="navbar navbar-header navbar-header-fixed">
-    <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+
+    @section('file-manager-menu')
+        <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>'
+    @stop
+    @yield('file-manager-menu')
     <div class="navbar-brand">
         <a href="{{ url('/') }}" class="df-logo">GED<span>Mila</span></a>
     </div>{{-- navbar-brand --}}

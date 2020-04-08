@@ -3,6 +3,7 @@
 namespace Kouloughli\Support\Plugins\Dashboard\Widgets;
 
 use Carbon\Carbon;
+use Kouloughli\Charts\DocumentsChart;
 use Kouloughli\File;
 use Kouloughli\Plugins\Widget;
 use Kouloughli\Repositories\File\FileRepository;
@@ -27,6 +28,8 @@ class FilesCharts extends Widget
 
     protected $filePerMonth;
 
+    protected $chart;
+
     /**
      * LatestRegistrations constructor.
      * @param UserRepository $users
@@ -41,17 +44,24 @@ class FilesCharts extends Widget
      */
     public function render()
     {
-        return view('plugins.dashboard.widgets.files-chart', [
-            'lastestFiles' => $this->files->latest(6),
-            'counts' => $this->getFilesPerMonth()
+        $this->getFilesPerMonth();
+        $data = $this->filePerMonth;
+        $chart = new DocumentsChart();
+        $chart->labels(array_keys($data));
+        $chart->dataset(trans('Documents'),'line',array_values($data));
+        $this->chart = $chart;
+        return view('plugins.dashboard.widgets.documents-chart', [
+            'chart' => $chart
         ]);
     }
 
     public function scripts()
     {
-        return view('plugins.dashboard.widgets.files-charts-scripts', [
-            'counts' => $this->getFilesPerMonth()
+
+        return view('plugins.dashboard.widgets.documents-chart-script', [
+            'chart' => $this->chart
         ]);
+
     }
 
     private function getFilesPerMonth()

@@ -13,9 +13,7 @@
         @endif
 
         {{-- ================ Start Of latest Files ======== --}}
-        @if (!Request::has('search') && !Request::get('search') != '' && !Session::has('list-view'))
-            @include('file-manager.partials.latest')
-        @endif
+
         @endif
         {{-- ================ End Of latest Files ======== --}}
 

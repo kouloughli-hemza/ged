@@ -97,7 +97,7 @@ class EloquentUser implements UserRepository
      */
     public function paginate($perPage, $search = null, $status = null)
     {
-        $query = User::query();
+        $query = User::query()->with('direction','role');
 
         if ($status) {
             $query->where('status', $status);

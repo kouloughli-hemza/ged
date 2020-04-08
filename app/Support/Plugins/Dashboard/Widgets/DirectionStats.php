@@ -42,7 +42,7 @@ class DirectionStats extends Widget
     {
         $colors = ['purple','teal','pink','warning','success','primary'];
         return view('plugins.dashboard.widgets.direction-stats', [
-            'directions' => $this->directions->all(),
+            'directions' => $this->directions->directionsWithFileCount(),
             'colors' => $colors
         ]);
     }

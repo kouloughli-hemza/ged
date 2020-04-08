@@ -7,7 +7,7 @@
     <td class="align-middle">{{ $direction->direc_description}}</td>
     <td class="align-middle">{{ $direction->direc_email }}</td>
     <td class="align-middle">{{ $direction->direc_phone }}</td>
-    <td class="align-middle text-center">{{ $direction->files->count() }}</td>
+    <td class="align-middle text-center">{{ $direction->files_count }}</td>
     <td class="align-middle">{{ $direction->created_at->format(config('app.date_format')) }}</td>
     <td class="align-middle">
         <span class="badge  badge-{{ $direction->present()->labelClass }}">

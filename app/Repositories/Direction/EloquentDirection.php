@@ -23,13 +23,19 @@ class EloquentDirection implements DirectionRepository
         return Direction::all();
     }
 
+    public function directionsWithFileCount()
+    {
+        return Direction::withCount('files')->get();
+
+    }
+
 
     /**
      * {@inheritdoc}
      */
     public function paginate($perPage, $search = null, $status = null)
     {
-        $query = Direction::query();
+        $query = Direction::query()->withCount('files');
 
         if ($status) {
             $query->where('direc_status', $status);

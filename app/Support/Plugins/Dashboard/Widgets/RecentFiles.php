@@ -40,17 +40,19 @@ class RecentFiles extends Widget
     public function render()
     {
         return view('plugins.dashboard.widgets.recent-files', [
-            'latestFiles' => $this->files->latest(10),
-            'thisWeek' => $this->weekCount(),
-            'thisMonth' => $this->monthCount(),
-            'thisYear' => $this->yearCount()
+            'latestFiles' => $this->files->latestWidget(10),
+            //'thisWeek' => $this->weekCount(),
+            //'thisMonth' => $this->monthCount(),
+            //'thisYear' => $this->yearCount()
 
         ]);
     }
 
     private function weekCount()
     {
+
         return File::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+
     }
 
     private function monthCount()

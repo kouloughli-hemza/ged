@@ -93,7 +93,7 @@ class FilesController extends Controller
         return view('file-manager.index',[
             'documents' => $documents,
             'space' => Helper::diskSpace(),
-            'latests' => auth()->user()->hasRole('Admin') ? $this->file->latest(4) : $this->file->latestForDirection(4),
+            //'latests' => auth()->user()->hasRole('Admin') ? $this->file->latest(4) : $this->file->latestForDirection(4),
             'importances' => FileImportance::lists(),
             'pageNumbers' => FileImportance::pageNumbers(),
             'directions' => [0 => __('Select a Direction')] + $this->directions->lists()->toArray(),

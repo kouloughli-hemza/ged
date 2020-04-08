@@ -2,12 +2,10 @@
 
 namespace Kouloughli\Support\Plugins\Dashboard\Widgets;
 
-use Carbon\Carbon;
-use Kouloughli\File;
 use Kouloughli\Plugins\Widget;
 use Kouloughli\Repositories\File\FileRepository;
 use Kouloughli\Repositories\User\UserRepository;
-
+use Kouloughli\Charts\DocumentsByDirectionChart as chart;
 class DocumentsByDirectionChart extends Widget
 {
     /**
@@ -30,6 +28,11 @@ class DocumentsByDirectionChart extends Widget
      */
     protected $directionsFiles;
 
+    /**
+     * @var
+     */
+    protected $directionChart;
+
 
     /**
      * DirectionChart constructor.
@@ -45,44 +48,35 @@ class DocumentsByDirectionChart extends Widget
      */
     public function render()
     {
+        $this->getDirectionsFiles();
+        $data = $this->directionsFiles;
+        $barChart = new chart();
+        $barChart->labels(array_keys($data));
+        $barChart->dataset('DOCS','bar',array_values($data));
+        $this->directionChart = $barChart;
+
         return view('plugins.dashboard.widgets.documents-by-direction-chart', [
-            'directionsFiles' => $this->getDirectionsFiles(),
-            'counts' => $this->getDirectionsFiles()
+            'chart' => $barChart,
+            //'counts' => $this->getDirectionsFiles()
         ]);
     }
 
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|null
+     */
     public function scripts()
     {
         return view('plugins.dashboard.widgets.documents-by-direction-chart-scripts', [
-            'counts' => $this->getDirectionsFiles(),
-            'yDataSet' => $this->flotChartGenerateDataSet($this->getDirectionsFiles()),
-            'xDataSet' => $this->flotChartGenerateXDataSet($this->getDirectionsFiles())
+            'chart' => $this->directionChart,
         ]);
     }
 
-    private function flotChartGenerateDataSet($elements)
-    {
-        $dataset = [];
-        $i = 0;
-        foreach ($elements as $element){
-            $dataset[] = array($i,$element);
-            $i++;
-        }
-        return $dataset;
-    }
 
-    private function flotChartGenerateXDataSet($elements)
-    {
-        $dataset = [];
-        $i = 0;
-        foreach ($elements as $key => $element){
-            $dataset[] = array($i,$key);
-            $i++;
-        }
-        return $dataset;
-    }
-
-
+    /**
+     *
+     * @return mixed
+     */
     private function getDirectionsFiles()
     {
         if ($this->directionsFiles) {

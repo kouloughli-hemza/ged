@@ -8,7 +8,7 @@
 
         </div>{{-- card-header --}}
         <div class="card-body pd-y-30">
-            <div class="d-sm-flex">
+            {{--<div class="d-sm-flex">
                 <div class="media">
                     <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-teal tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-6">
                         <i data-feather="bar-chart-2"></i>
@@ -36,7 +36,7 @@
                         <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">{{ $thisYear }}</h4>
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </div>{{-- card-body --}}
         @if (count($latestFiles))
         <div class="table-responsive">
@@ -46,7 +46,6 @@
                     <th>@lang('File')</th>
                     <th>@lang('Arrival date')</th>
                     <th>@lang('Direction')</th>
-                    <th>@lang('user')</th>
                     <th>@lang('Size')</th>
                 </tr>
                 </thead>
@@ -56,7 +55,6 @@
                     <td class="tx-color-03 tx-normal">{{ $file->file_name }}</td>
                     <td class="tx-color-03 tx-normal">{{$file->date_arrivee->format(config('app.date_format'))}}</td>
                     <td class="tx-color-03 tx-normal">{{$file->user->direction->direc_name}}</td>
-                    <td class="tx-normal">{{ $file->user->first_name . ' ' .  $file->user->last_name}}</td>
                     <td class="tx-medium ">
                         {{$file->file_size}}
                     </td>

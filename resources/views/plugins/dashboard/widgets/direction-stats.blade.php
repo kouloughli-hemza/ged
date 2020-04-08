@@ -29,7 +29,7 @@
                                     <div class="wd-15 ht-15 rounded-circle bd bd-3 bd-{{$colors[array_rand($colors)]}}"></div>
                                 </td>
                                 <td class="tx-medium">{{ $direction->direc_name }}</td>
-                                <td class="text-right pd-r-0-f">{{ $direction->files->count() }}</td>
+                                <td class="text-right pd-r-0-f">{{ $direction->files_count }}</td>
                             </tr>
 
                         @endforeach
