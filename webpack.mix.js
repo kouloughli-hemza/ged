@@ -35,7 +35,7 @@ mix.scripts([
 ], 'public/assets/js/mix/ged.js');
 
 
-mix.scripts([
+mix.babel([
     'public/assets/js/scanner.js',
     'public/assets/js/file-manager.js',
     'public/assets/js/scanner-wizard.js'
