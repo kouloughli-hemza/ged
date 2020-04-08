@@ -99,7 +99,9 @@
 
             $("#btn-upload").on('click',function(e){
                 btn_upload.style.display = 'none';
-                Array.from(document.querySelectorAll("img.th_img")).forEach(e => { uploadImage(e); });
+                Array.from(document.querySelectorAll("img.th_img")).forEach(function(e){
+                    uploadImage(e);
+                });
             })
 
 
