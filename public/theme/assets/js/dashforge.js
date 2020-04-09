@@ -1,6 +1,6 @@
 
 $(function(){
-  'use strict'
+  'use strict';
 
   feather.replace();
 
@@ -8,7 +8,7 @@ $(function(){
 
   // Initialize PerfectScrollbar of navbar menu for mobile only
   if(window.matchMedia('(max-width: 991px)').matches) {
-    const psNavbar = new PerfectScrollbar('#navbarMenu', {
+    var psNavbar = new PerfectScrollbar('#navbarMenu', {
       suppressScrollX: true
     });
   }
@@ -25,7 +25,7 @@ $(function(){
   showNavbarActiveSub()
   $(window).resize(function(){
     showNavbarActiveSub()
-  })
+  });
 
   // Initialize backdrop for overlay purpose
   $('body').append('<div class="backdrop"></div>');
@@ -40,7 +40,7 @@ $(function(){
     if(window.matchMedia('(max-width: 991px)').matches) {
       psNavbar.update();
     }
-  })
+  });
 
   // Closing dropdown menu of navbar menu
   $(document).on('click touchstart', function(e){
@@ -53,7 +53,7 @@ $(function(){
         $('.navbar-header .show').removeClass('show');
       }
     }
-  })
+  });
 
   $('#mainMenuClose').on('click', function(e){
     e.preventDefault();
@@ -63,20 +63,20 @@ $(function(){
   $('#sidebarMenuOpen').on('click', function(e){
     e.preventDefault();
     $('body').addClass('sidebar-show');
-  })
+  });
 
   // Navbar Search
   $('#navbarSearch').on('click', function(e){
     e.preventDefault();
     $('.navbar-search').addClass('visible');
     $('.backdrop').addClass('show');
-  })
+  });
 
   $('#navbarSearchClose').on('click', function(e){
     e.preventDefault();
     $('.navbar-search').removeClass('visible');
     $('.backdrop').removeClass('show');
-  })
+  });
 
 
 

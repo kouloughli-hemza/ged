@@ -35,11 +35,15 @@ mix.scripts([
 ], 'public/assets/js/mix/ged.js');
 
 
-mix.babel([
-    'public/assets/js/scanner.js',
+mix.scripts([
     'public/assets/js/file-manager.js',
     'public/assets/js/scanner-wizard.js'
 ], 'public/assets/js/mix/documents.js');
+
+mix.babel([
+    'public/assets/js/scanner.js',
+], 'public/assets/js/mix/scanner.js');
+
 
 mix.scripts([
     'public/theme/lib/jquery/jquery.min.js',
@@ -87,7 +91,7 @@ mix.styles([
 
 
 mix.sass('resources/sass/app.scss', 'public/assets/css');
-mix.version();
+
 if (mix.inProduction()) {
     mix.version();
 }

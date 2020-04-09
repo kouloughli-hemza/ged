@@ -89,5 +89,6 @@
             btnScanningText = "@lang('Scanning document...')";
     </script>
     {!! HTML::script('assets/js/as/btn.js') !!}
+    <script src="{{ asset(mix('assets/js/mix/scanner.js')) }}"></script>
     <script src="{{ asset(mix('assets/js/mix/documents.js')) }}"></script>
 @stop
