@@ -29,7 +29,7 @@ class EloquentFile implements FileRepository
      */
     public function paginate($perPage, $search = null, $importance = null,$direction = null,$filterDateArrivee = null,$orderBy = 'id',$order = 'desc')
     {
-        $query = File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name');
+        $query = File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name,folder_path');
 
 
         if ($importance) {
@@ -79,7 +79,8 @@ class EloquentFile implements FileRepository
     {
 
         $direction = Auth::user()->direction;
-        $query = File::query()->with('user:ref_user,first_name,last_name,id_direc','user.direction:id_direc,direc_name');
+        $query = File::query()
+            ->with('user:ref_user,first_name,last_name,id_direc','user.direction:id_direc,direc_name,folder_path');
 
 
 
@@ -245,7 +246,7 @@ class EloquentFile implements FileRepository
 
     public function latest($limit = 4)
     {
-        return File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name')
+        return File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name,folder_path')
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get();
@@ -254,7 +255,7 @@ class EloquentFile implements FileRepository
 
     public function latestWidget($limit = 4)
     {
-        return File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name')
+        return File::with('user:ref_user,id_direc','user.direction:id_direc,direc_name,folder_path')
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get();
@@ -263,7 +264,7 @@ class EloquentFile implements FileRepository
     public function latestForDirection($limit = 4)
     {
         $direction = Auth::user()->direction;
-        $query = File::query()->with('user:ref_user,id_direc','user.direction:id_direc,direc_name');
+        $query = File::query()->with('user:ref_user,id_direc','user.direction:id_direc,direc_name,folder_path');
         if ($direction) {
             $query->where(function ($q) use ($direction) {
                 $q->whereIn('ref_user', $direction->getUserIdsAttribute());
