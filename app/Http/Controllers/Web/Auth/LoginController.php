@@ -94,9 +94,6 @@ class LoginController extends Controller
         }
 
 
-
-
-
         Auth::login($user, setting('remember_me') && $request->get('remember'));
 
         return $this->authenticated($request, $throttles, $user);

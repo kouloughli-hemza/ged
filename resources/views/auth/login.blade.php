@@ -45,7 +45,28 @@
                                class="form-control"
                                placeholder="@lang('Password')">
                     </div>
+
+
+
+                    @if (setting('remember_me'))
+                    <div class="form-group mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="custom-control custom-switch login-custom-switch">
+                                <input type="hidden" value="0" name="remember_me">
+                                {{--<input type="checkbox" class="custom-control-input" name="remember" id="remember" value="1"/>--}}
+                                {!! Form::checkbox('remember', 1,'',
+                                ['class' => 'custom-control-input', 'id' => 'switch-remember-me']) !!}
+                                <label for="switch-remember-me" class="custom-control-label"></label>
+                            </div>
+                            <div class="ml-3 d-flex flex-column">
+                                <label class="mb-0" for="switch-remember-me" onselectstart="return false">@lang('Remember me?')</label>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                     <button id="btn-login" class="btn btn-brand-02 btn-block">@lang('Log In')</button>
+
                     <div class="divider-text">Ou</div>
 
                     {{-- If Wilaya Allow Registration --}}
@@ -65,6 +86,15 @@
     </div>{{-- container --}}
 @stop
 
+@section('styles')
+  <style>
+      .login-custom-switch{
+          padding-top: 0.3rem;
+          padding-left: 1rem;
+          padding-right: 0.3rem;
+      }
+  </style>
+@stop
 @section('scripts')
     {!! HTML::script('assets/js/as/login.js') !!}
     {!! JsValidator::formRequest('Kouloughli\Http\Requests\Auth\LoginRequest', '#login-form') !!}
