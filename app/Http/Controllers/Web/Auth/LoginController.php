@@ -88,6 +88,15 @@ class LoginController extends Controller
                 ->withErrors(__('Your account is banned by administrator.'));
         }
 
+        if ($user->isUnconfirmed()) {
+            return redirect()->to('login' . $to)
+                ->withErrors(__('Your account is not yet activated by administrator.'));
+        }
+
+
+
+
+
         Auth::login($user, setting('remember_me') && $request->get('remember'));
 
         return $this->authenticated($request, $throttles, $user);

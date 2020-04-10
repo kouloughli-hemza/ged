@@ -71,6 +71,7 @@
   "You have to accept Terms of Service.": "Vous devez accepter les conditions d\\'utilisation.",
   "Permission with this name already exists.": "La permission avec ce nom existe déjà!",
   "Your account is banned by administrator.": "Votre compte est banni par l\\'administrateur.",
+  "Your account is not yet activated by administrator.": "Votre compte n'est pas encore activé par l'administrateur.",
   "Something went wrong during the authentication process. Please try again.": "Une erreur s'est produite lors du processus d'authentification. Veuillez réessayer.\n",
   "Only users who already created an account can log in.": "Seuls les utilisateurs qui ont déjà créé un compte peuvent se connecter\n",
   "You have to provide your email address.": "Vous devez fournir votre adresse e-mail.",
