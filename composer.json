@@ -30,7 +30,7 @@
         "fideloper/proxy": "~4.0",
         "intervention/image": "^2.3",
         "jenssegers/agent": "^2.5",
-        "kouloughliapp/activity-log": "dev-master",
+        "kouloughliapp/activity-log": "^1.0.2",
         "kouloughliapp/announcements": "^1.0.3",
         "kouloughliapp/plugins": "^1.0.2",
         "lab404/laravel-impersonate": "^1.2",
