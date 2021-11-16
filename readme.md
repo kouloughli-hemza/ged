@@ -1,4 +1,4 @@
 ## Kouloughli - GED Mila
 
-- Website: https://Kouloughliapp.io
-- Developed by [Kouloughli Hemza](https://fb.com/system32hacker)
+- Website: https://www.linkedin.com/in/hemza-kouloughli-1186a0118/
+- Developed by [Kouloughli Hemza](https://www.linkedin.com/in/hemza-kouloughli-1186a0118/)
