@@ -10,7 +10,7 @@
 
             var i = 0;
             var wsImpl = window.WebSocket || window.MozWebSocket;
-            window.ws = new wsImpl('ws://' + currentClientIp + ':4000');
+            window.ws = new wsImpl('wss://' + currentClientIp + ':4000');
             ws.onmessage = function(e){
                 if(e.data == "EnableScan"){
                     $("#btn-scan").show();
